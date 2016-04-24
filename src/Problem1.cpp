@@ -44,6 +44,8 @@ Difficulty : Easy
 #include <stdio.h>
 #include <math.h>
 
+void missing(struct node *, int *);
+
 struct node{
 	int data;
 	struct node *left;
@@ -52,5 +54,18 @@ struct node{
 
 
 int get_missing_value(struct node *root,int n){
-    return -1;
+	if (root == NULL)
+		return -1;
+	int s = (n*(n + 1)) / 2;
+	 missing(root, &s);
+	 return s;
+}
+void missing(struct node *root, int *s)
+{
+	if (root == NULL)
+		return ;
+	*s = *s - root->data;
+	missing(root->left, s);
+	missing(root->right, s);
+
 }
